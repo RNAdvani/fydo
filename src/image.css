@@ -1,0 +1,65 @@
+.img-card{
+    padding: 10px;
+    box-shadow: 0 0 5px #ffdfdf;
+    border-radius: 5px;
+}
+
+.img-card .drag{
+    height: 150px;
+    border: 2px solid #ffdfdf;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    user-select: none;
+    -webkit-user-select: none;
+    margin-top: 10px;
+}
+
+.select-image{
+    cursor: pointer;
+    transition: 0.6s;
+}
+.select-image:hover{
+    opacity: 0.6;
+}
+.image-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.image-container .image{
+    width: 150px;
+    margin-right: 5px;
+    position: relative;
+    margin-bottom: 8px;
+    height: 100px;
+}
+
+.image-container .image img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.image-container .image span{
+    position: absolute;
+    top: -2px;
+    right: 9px;
+    font-size: 20px;
+    cursor: pointer;
+}
+input[type=date]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+input[type=date]:focus::-webkit-datetime-edit {
+    color: black !important;
+}
