@@ -3,12 +3,17 @@ import Modal from './components/Modal'
 import './App.css'
 import Form from './Form';
 import iphone from './components/iphonefydo.png'
+import Thanks from './Thanks';
 
 function App() {
 
   const [modalOpen,setOpenModal] = useState(false);
   const handleButtonClick =()=>{
     setOpenModal(false)
+  }
+  const [eventSubmit,setEventSubmit] = useState(false)
+  const handleEvent =(bool)=>{
+    setEventSubmit(bool)
   }
 
   document.body.style.overflow = modalOpen? "hidden" :"auto" 
@@ -33,8 +38,15 @@ function App() {
       {
         modalOpen && (
             <Modal  onClose={handleButtonClick} >
-              <Form onFormSubmit={handleButtonClick} onCancel={handleButtonClick} />
+              <Form onFormSubmit={handleButtonClick} onCancel={handleButtonClick} openEvent={handleEvent} />
            </Modal>
+        )
+      }
+      {
+        eventSubmit && (
+        <Modal onClose={handleEvent} >
+          <Thanks />
+        </Modal>
         )
       }
     </div>

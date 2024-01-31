@@ -17,7 +17,7 @@ const initialValues ={
     event_description:""
 }
 
-function Form({onFormSubmit,onCancel}) {
+function Form({onFormSubmit,onCancel,openEvent}) {
     const {values,handleBlur,handleSubmit,handleChange} = useFormik({
         initialValues:initialValues,
         onSubmit:(values)=>{
@@ -28,7 +28,6 @@ function Form({onFormSubmit,onCancel}) {
    
     
     const [images,setImages] = useState([]);
-    const [dragging,setDragging] = useState(false);
     const fileRef = useRef(null)
 
     function selectImages(){
@@ -57,12 +56,10 @@ function Form({onFormSubmit,onCancel}) {
 
     function onDragOver(event){
         event.preventDefault();
-        setDragging(true);
         event.dataTransfer.dropEffect ="copy";
     }
     function onDragLeave(event){
         event.preventDefault();
-        setDragging(false);
     }
     function onDrop(event){
         event.preventDefault();
@@ -86,7 +83,7 @@ function Form({onFormSubmit,onCancel}) {
 
 
     useEffect(()=>{
-        console.log(images)
+        console.log({images,values})
     },[images])
 
 
@@ -113,8 +110,9 @@ function Form({onFormSubmit,onCancel}) {
 
                     </div>
                         <h1 className='text-xl' >Image Cover Photos</h1>
-                    <div className="img-card flex lg:flex-row flex-col ">
-                    <div className="image-container lg:w-[45%] min-h-[150px]">
+                    <div className="img-card flex gap-2 lg:flex-row flex-col ">
+    
+                    <div className="image-container border-dashed border rounded border-[#f790096b] lg:w-[45%] min-h-[150px]">
                              {
                                 images.map((image,idx)=>( 
                                     <div className="image" key={idx}>
@@ -124,16 +122,16 @@ function Form({onFormSubmit,onCancel}) {
                                 ))
                                }
                         </div>
-                        <div className="drag lg:w-[100%]" onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}  >
-                            <span className='select-image flex-col flex items-center' role='button'  onClick={()=>selectImages()}><CloudUploadIcon fontSize='large' /></span>
-                            <span className='text-[#FE3838] '>Click to upload</span>
+                        <div className="drag lg:w-[100%] shadow-md" onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}  >
+                            <span className='select-image text-gray-400 flex-col flex items-center' role='button'  onClick={()=>selectImages()}><CloudUploadIcon fontSize='large' /></span>
+                           <span className=' text-center text-gray-400'> <span className='text-[#FE3838] '>Click to upload</span> or drag and drop <br /> SVG,PNG,JPG or GIF format  </span>
                             <input type="file" name='file' className='hidden' multiple ref={fileRef}  onChange={fileSelect}  />
                         </div>
                       
                     </div>
                     <div className='flex flex-wrap gap-2 justify-center items-center mt-[2rem]' >
                             
-                            <input type="date" name="event_date" id=""  placeholder='Date' className='w-[45%] border border-solid border-gray py-[0.9rem] px-2 shadow-sm rounded-md' onChange={handleChange} value={values.event_date} />
+                            <input type="date" name="event_date" id=""  placeholder='Date' className=' text-gray-500 w-[45%] border border-solid border-gray py-[0.9rem] px-2 shadow-sm rounded-md' onChange={handleChange} value={values.event_date} />
                            
                           <FormControl className='w-[45%]' >
                           <InputLabel id="demo-simple-select-label" >Event Time</InputLabel>
@@ -186,7 +184,7 @@ function Form({onFormSubmit,onCancel}) {
                     </div>
                     <div className='pt-6 modal-footer' >
                         <button className='btn btn-cancel' onClick={()=>onCancel()}>Cancel</button>
-                        <button className='btn btn-submit' >List Event</button>
+                        <button className='btn btn-submit' onClick={()=>openEvent(true)} >List Event</button>
                     </div>
               </form>
     </div>

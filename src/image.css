@@ -6,7 +6,6 @@
 
 .img-card .drag{
     height: 150px;
-    border: 2px dashed #f790096b;
     border-radius: 5px;
     display: flex;
     justify-content: center;
