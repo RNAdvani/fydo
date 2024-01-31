@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react'
+import React,{useState,useRef, useEffect} from 'react'
 import featured from './components/featured.png'
 import { Field, useFormik } from 'formik'
 import './image.css'
@@ -21,10 +21,12 @@ function Form({onFormSubmit,onCancel}) {
     const {values,handleBlur,handleSubmit,handleChange} = useFormik({
         initialValues:initialValues,
         onSubmit:(values)=>{
-            console.log(values)
+           console.log(values)
         }
     });
 
+   
+    
     const [images,setImages] = useState([]);
     const [dragging,setDragging] = useState(false);
     const fileRef = useRef(null)
@@ -76,9 +78,16 @@ function Form({onFormSubmit,onCancel}) {
                 ])
             }
         }
+        setData((prev)=>prev.imgs=images);
     }
 
 
+    
+
+
+    useEffect(()=>{
+        console.log(images)
+    },[images])
 
 
   return (
@@ -105,7 +114,7 @@ function Form({onFormSubmit,onCancel}) {
                     </div>
                         <h1 className='text-xl' >Image Cover Photos</h1>
                     <div className="img-card flex lg:flex-row flex-col ">
-                    <div className="image-container min-h-[150px]">
+                    <div className="image-container lg:w-[45%] min-h-[150px]">
                              {
                                 images.map((image,idx)=>( 
                                     <div className="image" key={idx}>
@@ -115,8 +124,9 @@ function Form({onFormSubmit,onCancel}) {
                                 ))
                                }
                         </div>
-                        <div className="drag w-full" onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}  >
-                            <span className='select-image flex-col flex items-center' role='button'  onClick={()=>selectImages()}><CloudUploadIcon fontSize='large' />Click to upload</span>
+                        <div className="drag lg:w-[100%]" onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}  >
+                            <span className='select-image flex-col flex items-center' role='button'  onClick={()=>selectImages()}><CloudUploadIcon fontSize='large' /></span>
+                            <span className='text-[#FE3838] '>Click to upload</span>
                             <input type="file" name='file' className='hidden' multiple ref={fileRef}  onChange={fileSelect}  />
                         </div>
                       
